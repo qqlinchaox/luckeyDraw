@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>抽奖</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class='luck-back'>
+		<div class="luck-content ce-pack-end">
+			<div id="luckuser" class="slotMachine">
+				<div class="slot">
+					<span class="name">姓名</span>
+				</div>
+			</div>
+			<div class="luck-content-btn">
+				<a id="start" class="start" onclick="start()">开始</a>
+			</div>
+			<div class="luck-user">
+				<div class="luck-user-title">
+					<span>中奖名单</span>
+				</div>
+				<ul class="luck-user-list"></ul>
+				<div class="luck-user-btn">
+					<a href="#">中奖人</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery-2.2.4.min.js"text/javascript"></script>
+	<script>
+		var xinm = new Array();
+		var phone = new Array();
+		$.get("data/person.json",(function(res){
+			for(var i =0;i<res.data.length;i++){
+				xinm.push(res.data[i].img)
+				phone.push(res.data[i].name)
+				
+			}
+			init()
+		}))
+	</script>
+	<script src="js/luck.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			li{
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="lucky_number" type="number" name="" id="" value="" placeholder="中奖人数" />
+		<input id="btn" type="button" name="" id="" value="开始抽奖" placeholder="" />
+		<ul class="mermberList">
+			
+		</ul>
+		<p>中奖名单：</p>
+		<ul class="luckList">
+			
+		</ul>
+	</body>
+	<script src="js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		var mermberList = [];
+		$.get("data/person.json",(function(res){
+			mermberList = res.data
+			var liString = ""
+			for(var i =0;i<mermberList.length;i++){
+				liString += "<li>"+mermberList[i].name+"</li>"
+			}
+			$(".mermberList").html(liString)
+		}))
+		var nowMermberList = [];
+		
+		$("#btn").on("click",function(){
+			var luckList = [];
+			var luckyNumber = document.getElementById("lucky_number").value|| 1;
+			var luckIndex = 1;
+			nowMermberList = copy(mermberList);
+			while(luckIndex<=parseInt(luckyNumber)){
+				var random = parseInt(Math.random()*nowMermberList.length);
+				luckList.push(nowMermberList[random])
+				nowMermberList.splice(random,1)
+				luckIndex++;
+			}	
+			var liString = ""
+			for(var i =0;i<luckList.length;i++){
+				liString += "<li>"+luckList[i].name+"</li>"
+			}
+			$(".luckList").html(liString)
+		})
+		function copy(arr){
+			var newArr = [];
+			for(var j=0;j<arr.length;j++){
+				newArr.push(arr[j])
+			}
+			return newArr;
+		}
+	</script>
+</html>
